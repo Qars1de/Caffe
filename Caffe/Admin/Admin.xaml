@@ -1,0 +1,82 @@
+﻿<Window x:Class="Caffe.Admin.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Caffe.Admin"
+        mc:Ignorable="d"
+        Title="Администратор" Height="450" Width="800"  Background="#FF232323">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+            <Setter Property="Background"  Value="#FF868686"/>
+            <Setter Property="Foreground"  Value="White"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="LwTbl">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="227*"/>
+            <RowDefinition Height="192*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="userGrid" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding UserID}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Binding="{Binding C6UserStatus.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Роль" Binding="{Binding C6Role.Nazvanie}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="updateButton" Click="updateButton_Click">Редактировать</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="insertButton" Content="Добавить" HorizontalAlignment="Left" Margin="285,137,0,0" Grid.Row="1" VerticalAlignment="Top" Height="29" Width="99" Click="insertButton_Click"/>
+        <Button x:Name="deleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="459,137,0,0" Grid.Row="1" VerticalAlignment="Top" Height="29" Width="99" Click="deleteButton_Click"/>
+        <TextBox x:Name="searchBox" HorizontalAlignment="Center" Margin="0,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148" Height="31" Grid.Row="1" TextChanged="searchBox_TextChanged"/>
+        <ComboBox Name="ComboSort" DisplayMemberPath="Nazvanie"  HorizontalAlignment="Left" ItemsSource="{Binding roles}" Grid.Row="1" VerticalAlignment="Top" Width="148" Height="31" Margin="550,30,0,0" SelectionChanged="ComboSort_SelectionChanged"/>
+        <Button x:Name="signOut" Content="Выход" HorizontalAlignment="Left" Margin="672,137,0,0" Grid.Row="1" VerticalAlignment="Top" Height="29" Width="99" Click="signOut_Click"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="10,66,0,0" VerticalAlignment="Top" Width="108" Source="/rest.png" Grid.Row="1"/>
+    </Grid>
+</Window>

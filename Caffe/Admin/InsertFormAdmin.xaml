@@ -1,0 +1,72 @@
+﻿<Window x:Class="Caffe.Admin.InsertFormAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Caffe.Admin"
+        mc:Ignorable="d"
+        Title="Регистрация пользователя" Height="450" Width="800" Background="#FF232323">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+            <Setter Property="Background"  Value="#FF868686"/>
+            <Setter Property="Foreground"  Value="White"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="LwTbl">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox x:Name="lastNameBox" HorizontalAlignment="Left" Margin="39,57,0,0" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <Button x:Name="okButton" Content="Ок" HorizontalAlignment="Left" Margin="12,377,0,0" VerticalAlignment="Top" Height="27" Width="70" Click="okButton_Click"/>
+        <Button x:Name="cancelButton" Content="Отмена" HorizontalAlignment="Left" Margin="108,377,0,0" VerticalAlignment="Top" Height="27" Width="87" Click="cancelButton_Click"/>
+        <TextBox x:Name="firstNameBox" HorizontalAlignment="Left" Margin="227,57,0,0" TextWrapping="Wrap" Text="{Binding FirstName}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <TextBox x:Name="patrBox" HorizontalAlignment="Left" Margin="418,57,0,0" TextWrapping="Wrap" Text="{Binding Patronymic}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <TextBox x:Name="phoneBox" HorizontalAlignment="Left" Margin="614,57,0,0" TextWrapping="Wrap" Text="{Binding Phone}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <TextBox x:Name="loginBox" HorizontalAlignment="Left" Margin="39,157,0,0" TextWrapping="Wrap" Text="{Binding Login}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <TextBox x:Name="passBox" HorizontalAlignment="Left" Margin="227,157,0,0" TextWrapping="Wrap" Text="{Binding Password}" VerticalAlignment="Top" Width="138" Height="31"/>
+        <ComboBox x:Name="statusCombo" DisplayMemberPath="Name" SelectedItem="{Binding C6UserStatus}" ItemsSource="{Binding UserStatus}" HorizontalAlignment="Left" Margin="427,157,0,0" VerticalAlignment="Top" Width="129" Height="31"/>
+        <ComboBox x:Name="roleCombo" DisplayMemberPath="Nazvanie" SelectedItem="{Binding C6Role}" ItemsSource="{Binding Role}" HorizontalAlignment="Left" Margin="614,157,0,0" VerticalAlignment="Top" Width="129" Height="31"/>
+        <Label Content="Фамилия" HorizontalAlignment="Left" Margin="39,20,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Имя" HorizontalAlignment="Left" Margin="227,20,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Отчество" HorizontalAlignment="Left" Margin="418,20,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Телефон" HorizontalAlignment="Left" Margin="614,20,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="39,120,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="227,120,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Статус" HorizontalAlignment="Left" Margin="427,120,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Label Content="Роль" HorizontalAlignment="Left" Margin="614,120,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="678,304,0,0" VerticalAlignment="Top" Width="108" Source="/rest.png"/>
+
+    </Grid>
+</Window>

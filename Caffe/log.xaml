@@ -1,0 +1,64 @@
+﻿<Window x:Class="Caffe.log"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Caffe"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="450" Width="408" Loaded="Window_Loaded" Background="#FF232323">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+            <Setter Property="Background"  Value="#FF868686"/>
+            <Setter Property="Foreground"  Value="White"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="LwTbl">
+            <Setter Property="FontSize"  Value="17"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily"  Value="Century Gothic"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox Name="loginBox" HorizontalAlignment="Left" Margin="129,117,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Height="33"/>
+        <Button Name="logButton" Content="Авторизоваться" HorizontalAlignment="Left" Margin="109,367,0,0" VerticalAlignment="Top" Height="35" Width="172" Click="logButton_Click" />
+        <TextBox x:Name="passBox" HorizontalAlignment="Left" Margin="129,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Height="33"/>
+        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="118,19,0,0" VerticalAlignment="Top" FontSize="24" Foreground="white" Background="#FF232323"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="129,91,0,0" Foreground="White" VerticalAlignment="Top"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="129,172,0,0" Foreground="White" VerticalAlignment="Top"/>
+        <Label Name="capchaLabel" Content="Капча" HorizontalAlignment="Left" Margin="169,333,0,0" Foreground="white" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="capchaBox" HorizontalAlignment="Left" Margin="129,283,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Height="33"/>
+        <Label Content="Капча" HorizontalAlignment="Left" Margin="129,257,0,0" Foreground="White" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="108" Source="/rest.png"/>
+
+    </Grid>
+</Window>
