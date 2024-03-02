@@ -28,30 +28,13 @@ namespace Caffe.Povar
 
         private void Update()
         {
-            var menu = App.Context.C6Menu.ToList();
+            var menu = App.Context.C6Order.ToList();
             LViewMenu.ItemsSource = menu;
         }
 
         private void UpdateOrder()
         {
-            var current = App.Context.C6Menu.ToList();
-            current = current.Where(p => p.Name.ToLower().Contains(searchBox.Text.ToLower())).ToList();
 
-
-            if (ComboSort.SelectedIndex == 1)
-            {
-                current = current.OrderByDescending(p => p.Cost).ToList();
-            }
-            else if (ComboSort.SelectedIndex == 2)
-            {
-                current = current.OrderBy(p => p.Cost).ToList();
-            }
-            else
-            {
-                Update();
-            }
-
-            LViewMenu.ItemsSource = current;
         }
 
         private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,6 +45,15 @@ namespace Caffe.Povar
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateOrder();
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderPovar order = new OrderPovar((sender as ListViewItem).DataContext as C6Order);
+            if (order.ShowDialog() == true)
+            {
+                Update();
+            }
         }
     }
 }

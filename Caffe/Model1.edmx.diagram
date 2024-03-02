@@ -6,18 +6,24 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6fa20e593d0d4b08873c4eb58cb1ad50" Name="Diagram1">
         <EntityTypeShape EntityType="user70_dbModel.C6Menu" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="user70_dbModel.C6Order" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="user70_dbModel.C6OrderMenu" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="user70_dbModel.C6OrderStatus" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="user70_dbModel.C6Role" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="user70_dbModel.C6User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="user70_dbModel.C6UserStatus" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <AssociationConnector Association="user70_dbModel.FK_6OrderMenu_6Menu" ManuallyRouted="false" />
-        <AssociationConnector Association="user70_dbModel.FK_6Order_6OrderStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="user70_dbModel.FK_6Order_6User" ManuallyRouted="false" />
-        <AssociationConnector Association="user70_dbModel.FK_6OrderMenu_6Order" ManuallyRouted="false" />
         <AssociationConnector Association="user70_dbModel.FK_6User_6Role" ManuallyRouted="false" />
         <AssociationConnector Association="user70_dbModel.FK_6User_6UserStatus" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="user70_dbModel.C6Order" Width="1.5" PointX="8.25" PointY="4.625" />
+        <EntityTypeShape EntityType="user70_dbModel.C6OrderStatus" Width="1.5" PointX="6" PointY="9" />
+        <EntityTypeShape EntityType="user70_dbModel.C6Shift" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="user70_dbModel.C6ShiftReporting" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="user70_dbModel.C6Tornout" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="user70_dbModel.FK_6Order_6OrderStatus1" />
+        <AssociationConnector Association="user70_dbModel.FK_6Order_6User" />
+        <AssociationConnector Association="user70_dbModel.FK_6ShiftReporting_6Shift" />
+        <AssociationConnector Association="user70_dbModel.FK_6ShiftReporting_6Tornout" />
+        <AssociationConnector Association="user70_dbModel.FK_6ShiftReporting_6User" />
+        <EntityTypeShape EntityType="user70_dbModel.C6OrderMenu" Width="1.5" PointX="10.5" PointY="5.125" />
+        <AssociationConnector Association="user70_dbModel.FK_6OrderMenu_6Menu" />
+        <AssociationConnector Association="user70_dbModel.FK_6OrderMenu_6Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

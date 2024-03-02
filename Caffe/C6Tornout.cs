@@ -15,27 +15,27 @@ namespace Caffe
 using System;
     using System.Collections.Generic;
     
-public partial class C6OrderStatus
+public partial class C6Tornout
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public C6OrderStatus()
+    public C6Tornout()
     {
 
-        this.C6Order = new HashSet<C6Order>();
+        this.C6ShiftReporting = new HashSet<C6ShiftReporting>();
 
     }
 
 
-    public int OrderStatusID { get; set; }
+    public int TornoutID { get; set; }
 
-    public string Status { get; set; }
+    public string Name { get; set; }
 
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<C6Order> C6Order { get; set; }
+    public virtual ICollection<C6ShiftReporting> C6ShiftReporting { get; set; }
 
 }
 

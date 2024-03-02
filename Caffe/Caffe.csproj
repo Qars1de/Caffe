@@ -105,6 +105,15 @@
     <Compile Include="C6Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="C6Shift.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C6ShiftReporting.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C6Tornout.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="C6User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -120,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Officiant\Officiant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Povar\OrderPovar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +159,9 @@
     </Compile>
     <Compile Include="Officiant\Officiant.xaml.cs">
       <DependentUpon>Officiant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Povar\OrderPovar.xaml.cs">
+      <DependentUpon>OrderPovar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Povar\Povar.xaml.cs">
       <DependentUpon>Povar.xaml</DependentUpon>

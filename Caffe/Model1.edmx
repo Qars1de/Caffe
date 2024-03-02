@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище user70_dbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище user70_dbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="6Menu">
           <Key>
             <PropertyRef Name="MenuID" />
@@ -29,7 +29,7 @@
           <Key>
             <PropertyRef Name="OrderMenuID" />
           </Key>
-          <Property Name="OrderMenuID" Type="int" Nullable="false" />
+          <Property Name="OrderMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Menu" Type="int" />
           <Property Name="OrderID" Type="int" />
           <Property Name="Kolvo" Type="int" Nullable="false" />
@@ -39,7 +39,7 @@
             <PropertyRef Name="OrderStatusID" />
           </Key>
           <Property Name="OrderStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="6Role">
           <Key>
@@ -47,6 +47,33 @@
           </Key>
           <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nazvanie" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="6Shift">
+          <Key>
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="ShiftID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="6ShiftReporting">
+          <Key>
+            <PropertyRef Name="ShiftReportingID" />
+          </Key>
+          <Property Name="ShiftReportingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ShiftID" Type="int" />
+          <Property Name="StartTimeFact" Type="time" Precision="7" />
+          <Property Name="EndTimeFact" Type="time" Precision="7" />
+          <Property Name="Turnout" Type="int" />
+        </EntityType>
+        <EntityType Name="6Tornout">
+          <Key>
+            <PropertyRef Name="TornoutID" />
+          </Key>
+          <Property Name="TornoutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="6User">
           <Key>
@@ -69,7 +96,7 @@
           <Property Name="UserStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_6Order_6OrderStatus">
+        <Association Name="FK_6Order_6OrderStatus1">
           <End Role="6OrderStatus" Type="Self.6OrderStatus" Multiplicity="0..1" />
           <End Role="6Order" Type="Self.6Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -117,6 +144,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_6ShiftReporting_6Shift">
+          <End Role="6Shift" Type="Self.6Shift" Multiplicity="0..1" />
+          <End Role="6ShiftReporting" Type="Self.6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="6Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="6ShiftReporting">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6ShiftReporting_6Tornout">
+          <End Role="6Tornout" Type="Self.6Tornout" Multiplicity="0..1" />
+          <End Role="6ShiftReporting" Type="Self.6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="6Tornout">
+              <PropertyRef Name="TornoutID" />
+            </Principal>
+            <Dependent Role="6ShiftReporting">
+              <PropertyRef Name="Turnout" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6ShiftReporting_6User">
+          <End Role="6User" Type="Self.6User" Multiplicity="0..1" />
+          <End Role="6ShiftReporting" Type="Self.6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="6User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="6ShiftReporting">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_6User_6Role">
           <End Role="6Role" Type="Self.6Role" Multiplicity="0..1" />
           <End Role="6User" Type="Self.6User" Multiplicity="*" />
@@ -147,9 +210,12 @@
           <EntitySet Name="6OrderMenu" EntityType="Self.6OrderMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="6OrderStatus" EntityType="Self.6OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="6Role" EntityType="Self.6Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="6Shift" EntityType="Self.6Shift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="6ShiftReporting" EntityType="Self.6ShiftReporting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="6Tornout" EntityType="Self.6Tornout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="6User" EntityType="Self.6User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="6UserStatus" EntityType="Self.6UserStatus" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_6Order_6OrderStatus" Association="Self.FK_6Order_6OrderStatus">
+          <AssociationSet Name="FK_6Order_6OrderStatus1" Association="Self.FK_6Order_6OrderStatus1">
             <End Role="6OrderStatus" EntitySet="6OrderStatus" />
             <End Role="6Order" EntitySet="6Order" />
           </AssociationSet>
@@ -165,6 +231,18 @@
             <End Role="6Order" EntitySet="6Order" />
             <End Role="6OrderMenu" EntitySet="6OrderMenu" />
           </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6Shift" Association="Self.FK_6ShiftReporting_6Shift">
+            <End Role="6Shift" EntitySet="6Shift" />
+            <End Role="6ShiftReporting" EntitySet="6ShiftReporting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6Tornout" Association="Self.FK_6ShiftReporting_6Tornout">
+            <End Role="6Tornout" EntitySet="6Tornout" />
+            <End Role="6ShiftReporting" EntitySet="6ShiftReporting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6User" Association="Self.FK_6ShiftReporting_6User">
+            <End Role="6User" EntitySet="6User" />
+            <End Role="6ShiftReporting" EntitySet="6ShiftReporting" />
+          </AssociationSet>
           <AssociationSet Name="FK_6User_6Role" Association="Self.FK_6User_6Role">
             <End Role="6Role" EntitySet="6Role" />
             <End Role="6User" EntitySet="6User" />
@@ -174,8 +252,7 @@
             <End Role="6User" EntitySet="6User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="user70_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -189,38 +266,7 @@
           <Property Name="Discount" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Weight" Type="Int32" />
-          <NavigationProperty Name="C6OrderMenu" Relationship="Self.FK_6OrderMenu_6Menu" FromRole="C6Menu" ToRole="C6OrderMenu" />
-        </EntityType>
-        <EntityType Name="C6Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="OrderStatus" Type="Int32" />
-          <NavigationProperty Name="C6OrderStatus" Relationship="Self.FK_6Order_6OrderStatus" FromRole="C6Order" ToRole="C6OrderStatus" />
-          <NavigationProperty Name="C6User" Relationship="Self.FK_6Order_6User" FromRole="C6Order" ToRole="C6User" />
-          <NavigationProperty Name="C6OrderMenu" Relationship="Self.FK_6OrderMenu_6Order" FromRole="C6Order" ToRole="C6OrderMenu" />
-        </EntityType>
-        <EntityType Name="C6OrderMenu">
-          <Key>
-            <PropertyRef Name="OrderMenuID" />
-          </Key>
-          <Property Name="OrderMenuID" Type="Int32" Nullable="false" />
-          <Property Name="Menu" Type="Int32" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="Kolvo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="C6Menu" Relationship="Self.FK_6OrderMenu_6Menu" FromRole="C6OrderMenu" ToRole="C6Menu" />
-          <NavigationProperty Name="C6Order" Relationship="Self.FK_6OrderMenu_6Order" FromRole="C6OrderMenu" ToRole="C6Order" />
-        </EntityType>
-        <EntityType Name="C6OrderStatus">
-          <Key>
-            <PropertyRef Name="OrderStatusID" />
-          </Key>
-          <Property Name="OrderStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="Int32" />
-          <NavigationProperty Name="C6Order" Relationship="Self.FK_6Order_6OrderStatus" FromRole="C6OrderStatus" ToRole="C6Order" />
+          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu" FromRole="C6Menu" ToRole="C6OrderMenu" />
         </EntityType>
         <EntityType Name="C6Role">
           <Key>
@@ -243,9 +289,10 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserStatus" Type="Int32" />
           <Property Name="Role" Type="Int32" />
-          <NavigationProperty Name="C6Order" Relationship="Self.FK_6Order_6User" FromRole="C6User" ToRole="C6Order" />
           <NavigationProperty Name="C6Role" Relationship="Self.FK_6User_6Role" FromRole="C6User" ToRole="C6Role" />
           <NavigationProperty Name="C6UserStatus" Relationship="Self.FK_6User_6UserStatus" FromRole="C6User" ToRole="C6UserStatus" />
+          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6User" ToRole="C6Order" />
+          <NavigationProperty Name="C6ShiftReporting" Relationship="user70_dbModel.FK_6ShiftReporting_6User" FromRole="C6User" ToRole="C6ShiftReporting" />
         </EntityType>
         <EntityType Name="C6UserStatus">
           <Key>
@@ -255,54 +302,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="C6User" Relationship="Self.FK_6User_6UserStatus" FromRole="C6UserStatus" ToRole="C6User" />
         </EntityType>
-        <Association Name="FK_6OrderMenu_6Menu">
-          <End Role="C6Menu" Type="Self.C6Menu" Multiplicity="0..1" />
-          <End Role="C6OrderMenu" Type="Self.C6OrderMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6Menu">
-              <PropertyRef Name="MenuID" />
-            </Principal>
-            <Dependent Role="C6OrderMenu">
-              <PropertyRef Name="Menu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_6Order_6OrderStatus">
-          <End Role="C6OrderStatus" Type="Self.C6OrderStatus" Multiplicity="0..1" />
-          <End Role="C6Order" Type="Self.C6Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6OrderStatus">
-              <PropertyRef Name="OrderStatusID" />
-            </Principal>
-            <Dependent Role="C6Order">
-              <PropertyRef Name="OrderStatus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_6Order_6User">
-          <End Role="C6User" Type="Self.C6User" Multiplicity="0..1" />
-          <End Role="C6Order" Type="Self.C6Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="C6Order">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_6OrderMenu_6Order">
-          <End Role="C6Order" Type="Self.C6Order" Multiplicity="0..1" />
-          <End Role="C6OrderMenu" Type="Self.C6OrderMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6Order">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="C6OrderMenu">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_6User_6Role">
           <End Role="C6Role" Type="Self.C6Role" Multiplicity="0..1" />
           <End Role="C6User" Type="Self.C6User" Multiplicity="*" />
@@ -329,28 +328,9 @@
         </Association>
         <EntityContainer Name="user70_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C6Menu" EntityType="Self.C6Menu" />
-          <EntitySet Name="C6Order" EntityType="Self.C6Order" />
-          <EntitySet Name="C6OrderMenu" EntityType="Self.C6OrderMenu" />
-          <EntitySet Name="C6OrderStatus" EntityType="Self.C6OrderStatus" />
           <EntitySet Name="C6Role" EntityType="Self.C6Role" />
           <EntitySet Name="C6User" EntityType="Self.C6User" />
           <EntitySet Name="C6UserStatus" EntityType="Self.C6UserStatus" />
-          <AssociationSet Name="FK_6OrderMenu_6Menu" Association="Self.FK_6OrderMenu_6Menu">
-            <End Role="C6Menu" EntitySet="C6Menu" />
-            <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
-          </AssociationSet>
-          <AssociationSet Name="FK_6Order_6OrderStatus" Association="Self.FK_6Order_6OrderStatus">
-            <End Role="C6OrderStatus" EntitySet="C6OrderStatus" />
-            <End Role="C6Order" EntitySet="C6Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_6Order_6User" Association="Self.FK_6Order_6User">
-            <End Role="C6User" EntitySet="C6User" />
-            <End Role="C6Order" EntitySet="C6Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_6OrderMenu_6Order" Association="Self.FK_6OrderMenu_6Order">
-            <End Role="C6Order" EntitySet="C6Order" />
-            <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
-          </AssociationSet>
           <AssociationSet Name="FK_6User_6Role" Association="Self.FK_6User_6Role">
             <End Role="C6Role" EntitySet="C6Role" />
             <End Role="C6User" EntitySet="C6User" />
@@ -359,7 +339,188 @@
             <End Role="C6UserStatus" EntitySet="C6UserStatus" />
             <End Role="C6User" EntitySet="C6User" />
           </AssociationSet>
+          <EntitySet Name="C6Order" EntityType="user70_dbModel.C6Order" />
+          <EntitySet Name="C6OrderStatus" EntityType="user70_dbModel.C6OrderStatus" />
+          <EntitySet Name="C6Shift" EntityType="user70_dbModel.C6Shift" />
+          <EntitySet Name="C6ShiftReporting" EntityType="user70_dbModel.C6ShiftReporting" />
+          <EntitySet Name="C6Tornout" EntityType="user70_dbModel.C6Tornout" />
+          <AssociationSet Name="FK_6Order_6OrderStatus1" Association="user70_dbModel.FK_6Order_6OrderStatus1">
+            <End Role="C6OrderStatus" EntitySet="C6OrderStatus" />
+            <End Role="C6Order" EntitySet="C6Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6Order_6User" Association="user70_dbModel.FK_6Order_6User">
+            <End Role="C6User" EntitySet="C6User" />
+            <End Role="C6Order" EntitySet="C6Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6Shift" Association="user70_dbModel.FK_6ShiftReporting_6Shift">
+            <End Role="C6Shift" EntitySet="C6Shift" />
+            <End Role="C6ShiftReporting" EntitySet="C6ShiftReporting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6Tornout" Association="user70_dbModel.FK_6ShiftReporting_6Tornout">
+            <End Role="C6Tornout" EntitySet="C6Tornout" />
+            <End Role="C6ShiftReporting" EntitySet="C6ShiftReporting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6ShiftReporting_6User" Association="user70_dbModel.FK_6ShiftReporting_6User">
+            <End Role="C6User" EntitySet="C6User" />
+            <End Role="C6ShiftReporting" EntitySet="C6ShiftReporting" />
+          </AssociationSet>
+          <EntitySet Name="C6OrderMenu" EntityType="user70_dbModel.C6OrderMenu" />
+          <AssociationSet Name="FK_6OrderMenu_6Menu" Association="user70_dbModel.FK_6OrderMenu_6Menu">
+            <End Role="C6Menu" EntitySet="C6Menu" />
+            <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6OrderMenu_6Order" Association="user70_dbModel.FK_6OrderMenu_6Order">
+            <End Role="C6Order" EntitySet="C6Order" />
+            <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C6Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <NavigationProperty Name="C6OrderStatus" Relationship="user70_dbModel.FK_6Order_6OrderStatus1" FromRole="C6Order" ToRole="C6OrderStatus" />
+          <NavigationProperty Name="C6User" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6Order" ToRole="C6User" />
+          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Order" FromRole="C6Order" ToRole="C6OrderMenu" />
+        </EntityType>
+        <EntityType Name="C6OrderStatus">
+          <Key>
+            <PropertyRef Name="OrderStatusID" />
+          </Key>
+          <Property Name="OrderStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6Order_6OrderStatus1" FromRole="C6OrderStatus" ToRole="C6Order" />
+        </EntityType>
+        <EntityType Name="C6Shift">
+          <Key>
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="ShiftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="C6ShiftReporting" Relationship="user70_dbModel.FK_6ShiftReporting_6Shift" FromRole="C6Shift" ToRole="C6ShiftReporting" />
+        </EntityType>
+        <EntityType Name="C6ShiftReporting">
+          <Key>
+            <PropertyRef Name="ShiftReportingID" />
+          </Key>
+          <Property Name="ShiftReportingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ShiftID" Type="Int32" />
+          <Property Name="StartTimeFact" Type="Time" Precision="7" />
+          <Property Name="EndTimeFact" Type="Time" Precision="7" />
+          <Property Name="Turnout" Type="Int32" />
+          <NavigationProperty Name="C6Shift" Relationship="user70_dbModel.FK_6ShiftReporting_6Shift" FromRole="C6ShiftReporting" ToRole="C6Shift" />
+          <NavigationProperty Name="C6Tornout" Relationship="user70_dbModel.FK_6ShiftReporting_6Tornout" FromRole="C6ShiftReporting" ToRole="C6Tornout" />
+          <NavigationProperty Name="C6User" Relationship="user70_dbModel.FK_6ShiftReporting_6User" FromRole="C6ShiftReporting" ToRole="C6User" />
+        </EntityType>
+        <EntityType Name="C6Tornout">
+          <Key>
+            <PropertyRef Name="TornoutID" />
+          </Key>
+          <Property Name="TornoutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C6ShiftReporting" Relationship="user70_dbModel.FK_6ShiftReporting_6Tornout" FromRole="C6Tornout" ToRole="C6ShiftReporting" />
+        </EntityType>
+        <Association Name="FK_6Order_6OrderStatus1">
+          <End Type="user70_dbModel.C6OrderStatus" Role="C6OrderStatus" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6OrderStatus">
+              <PropertyRef Name="OrderStatusID" />
+            </Principal>
+            <Dependent Role="C6Order">
+              <PropertyRef Name="OrderStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6Order_6User">
+          <End Type="user70_dbModel.C6User" Role="C6User" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C6Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6ShiftReporting_6Shift">
+          <End Type="user70_dbModel.C6Shift" Role="C6Shift" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6ShiftReporting" Role="C6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="C6ShiftReporting">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6ShiftReporting_6Tornout">
+          <End Type="user70_dbModel.C6Tornout" Role="C6Tornout" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6ShiftReporting" Role="C6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6Tornout">
+              <PropertyRef Name="TornoutID" />
+            </Principal>
+            <Dependent Role="C6ShiftReporting">
+              <PropertyRef Name="Turnout" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6ShiftReporting_6User">
+          <End Type="user70_dbModel.C6User" Role="C6User" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6ShiftReporting" Role="C6ShiftReporting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C6ShiftReporting">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="C6OrderMenu">
+          <Key>
+            <PropertyRef Name="OrderMenuID" />
+          </Key>
+          <Property Name="OrderMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Menu" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="Kolvo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C6Menu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu" FromRole="C6OrderMenu" ToRole="C6Menu" />
+          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6OrderMenu_6Order" FromRole="C6OrderMenu" ToRole="C6Order" />
+        </EntityType>
+        <Association Name="FK_6OrderMenu_6Menu">
+          <End Type="user70_dbModel.C6Menu" Role="C6Menu" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6OrderMenu" Role="C6OrderMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6Menu">
+              <PropertyRef Name="MenuID" />
+            </Principal>
+            <Dependent Role="C6OrderMenu">
+              <PropertyRef Name="Menu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6OrderMenu_6Order">
+          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6OrderMenu" Role="C6OrderMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="C6OrderMenu">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -375,34 +536,6 @@
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C6Order">
-            <EntityTypeMapping TypeName="user70_dbModel.C6Order">
-              <MappingFragment StoreEntitySet="6Order">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C6OrderMenu">
-            <EntityTypeMapping TypeName="user70_dbModel.C6OrderMenu">
-              <MappingFragment StoreEntitySet="6OrderMenu">
-                <ScalarProperty Name="OrderMenuID" ColumnName="OrderMenuID" />
-                <ScalarProperty Name="Menu" ColumnName="Menu" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C6OrderStatus">
-            <EntityTypeMapping TypeName="user70_dbModel.C6OrderStatus">
-              <MappingFragment StoreEntitySet="6OrderStatus">
-                <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -434,6 +567,64 @@
               <MappingFragment StoreEntitySet="6UserStatus">
                 <ScalarProperty Name="UserStatusID" ColumnName="UserStatusID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6Order">
+            <EntityTypeMapping TypeName="user70_dbModel.C6Order">
+              <MappingFragment StoreEntitySet="6Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6OrderStatus">
+            <EntityTypeMapping TypeName="user70_dbModel.C6OrderStatus">
+              <MappingFragment StoreEntitySet="6OrderStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6Shift">
+            <EntityTypeMapping TypeName="user70_dbModel.C6Shift">
+              <MappingFragment StoreEntitySet="6Shift">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6ShiftReporting">
+            <EntityTypeMapping TypeName="user70_dbModel.C6ShiftReporting">
+              <MappingFragment StoreEntitySet="6ShiftReporting">
+                <ScalarProperty Name="Turnout" ColumnName="Turnout" />
+                <ScalarProperty Name="EndTimeFact" ColumnName="EndTimeFact" />
+                <ScalarProperty Name="StartTimeFact" ColumnName="StartTimeFact" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShiftReportingID" ColumnName="ShiftReportingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6Tornout">
+            <EntityTypeMapping TypeName="user70_dbModel.C6Tornout">
+              <MappingFragment StoreEntitySet="6Tornout">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TornoutID" ColumnName="TornoutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6OrderMenu">
+            <EntityTypeMapping TypeName="user70_dbModel.C6OrderMenu">
+              <MappingFragment StoreEntitySet="6OrderMenu">
+                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Menu" ColumnName="Menu" />
+                <ScalarProperty Name="OrderMenuID" ColumnName="OrderMenuID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
