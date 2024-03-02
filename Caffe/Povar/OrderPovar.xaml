@@ -76,10 +76,11 @@
                                 <Border Grid.Column="1" BorderThickness="1" BorderBrush="White" Margin="5">
                                     <ListViewItem>
                                         <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Width="auto" Text="{Binding Menu, StringFormat={}Блюдо: {0}}" Style="{StaticResource LwTbl}" Margin="10,5,5,4" HorizontalAlignment="left" ></TextBlock>
+                                            <TextBlock Width="auto" Text="{Binding C6Menu.Name, StringFormat={}Блюдо: {0}}" Style="{StaticResource LwTbl}" Margin="10,5,5,4" HorizontalAlignment="left" ></TextBlock>
                                             <StackPanel>
                                                 <TextBlock Width="auto" Text="{Binding Kolvo, StringFormat={}Количество: {0}}" Style="{StaticResource LwTbl}" Margin="10,5,5,4" HorizontalAlignment="left" ></TextBlock>
                                             </StackPanel>
+                                            <TextBlock Width="auto" Text="{Binding C6Order.OrderID, StringFormat={}Блюдо: {0}}" Style="{StaticResource LwTbl}" Margin="10,5,5,4" HorizontalAlignment="left" ></TextBlock>
                                         </StackPanel>
                                     </ListViewItem>
                                 </Border>

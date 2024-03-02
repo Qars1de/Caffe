@@ -120,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_6OrderMenu_6Menu">
+        <Association Name="FK_6OrderMenu_6Menu1">
           <End Role="6Menu" Type="Self.6Menu" Multiplicity="0..1" />
           <End Role="6OrderMenu" Type="Self.6OrderMenu" Multiplicity="*" />
           <ReferentialConstraint>
@@ -132,7 +132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_6OrderMenu_6Order">
+        <Association Name="FK_6OrderMenu_6Order1">
           <End Role="6Order" Type="Self.6Order" Multiplicity="0..1" />
           <End Role="6OrderMenu" Type="Self.6OrderMenu" Multiplicity="*" />
           <ReferentialConstraint>
@@ -223,11 +223,11 @@
             <End Role="6User" EntitySet="6User" />
             <End Role="6Order" EntitySet="6Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_6OrderMenu_6Menu" Association="Self.FK_6OrderMenu_6Menu">
+          <AssociationSet Name="FK_6OrderMenu_6Menu1" Association="Self.FK_6OrderMenu_6Menu1">
             <End Role="6Menu" EntitySet="6Menu" />
             <End Role="6OrderMenu" EntitySet="6OrderMenu" />
           </AssociationSet>
-          <AssociationSet Name="FK_6OrderMenu_6Order" Association="Self.FK_6OrderMenu_6Order">
+          <AssociationSet Name="FK_6OrderMenu_6Order1" Association="Self.FK_6OrderMenu_6Order1">
             <End Role="6Order" EntitySet="6Order" />
             <End Role="6OrderMenu" EntitySet="6OrderMenu" />
           </AssociationSet>
@@ -256,18 +256,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="user70_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C6Menu">
-          <Key>
-            <PropertyRef Name="MenuID" />
-          </Key>
-          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Weight" Type="Int32" />
-          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu" FromRole="C6Menu" ToRole="C6OrderMenu" />
-        </EntityType>
         <EntityType Name="C6Role">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -291,8 +279,8 @@
           <Property Name="Role" Type="Int32" />
           <NavigationProperty Name="C6Role" Relationship="Self.FK_6User_6Role" FromRole="C6User" ToRole="C6Role" />
           <NavigationProperty Name="C6UserStatus" Relationship="Self.FK_6User_6UserStatus" FromRole="C6User" ToRole="C6UserStatus" />
-          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6User" ToRole="C6Order" />
           <NavigationProperty Name="C6ShiftReporting" Relationship="user70_dbModel.FK_6ShiftReporting_6User" FromRole="C6User" ToRole="C6ShiftReporting" />
+          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6User" ToRole="C6Order" />
         </EntityType>
         <EntityType Name="C6UserStatus">
           <Key>
@@ -327,7 +315,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="user70_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C6Menu" EntityType="Self.C6Menu" />
           <EntitySet Name="C6Role" EntityType="Self.C6Role" />
           <EntitySet Name="C6User" EntityType="Self.C6User" />
           <EntitySet Name="C6UserStatus" EntityType="Self.C6UserStatus" />
@@ -339,19 +326,10 @@
             <End Role="C6UserStatus" EntitySet="C6UserStatus" />
             <End Role="C6User" EntitySet="C6User" />
           </AssociationSet>
-          <EntitySet Name="C6Order" EntityType="user70_dbModel.C6Order" />
           <EntitySet Name="C6OrderStatus" EntityType="user70_dbModel.C6OrderStatus" />
           <EntitySet Name="C6Shift" EntityType="user70_dbModel.C6Shift" />
           <EntitySet Name="C6ShiftReporting" EntityType="user70_dbModel.C6ShiftReporting" />
           <EntitySet Name="C6Tornout" EntityType="user70_dbModel.C6Tornout" />
-          <AssociationSet Name="FK_6Order_6OrderStatus1" Association="user70_dbModel.FK_6Order_6OrderStatus1">
-            <End Role="C6OrderStatus" EntitySet="C6OrderStatus" />
-            <End Role="C6Order" EntitySet="C6Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_6Order_6User" Association="user70_dbModel.FK_6Order_6User">
-            <End Role="C6User" EntitySet="C6User" />
-            <End Role="C6Order" EntitySet="C6Order" />
-          </AssociationSet>
           <AssociationSet Name="FK_6ShiftReporting_6Shift" Association="user70_dbModel.FK_6ShiftReporting_6Shift">
             <End Role="C6Shift" EntitySet="C6Shift" />
             <End Role="C6ShiftReporting" EntitySet="C6ShiftReporting" />
@@ -364,28 +342,26 @@
             <End Role="C6User" EntitySet="C6User" />
             <End Role="C6ShiftReporting" EntitySet="C6ShiftReporting" />
           </AssociationSet>
+          <EntitySet Name="C6Menu" EntityType="user70_dbModel.C6Menu" />
+          <EntitySet Name="C6Order" EntityType="user70_dbModel.C6Order" />
           <EntitySet Name="C6OrderMenu" EntityType="user70_dbModel.C6OrderMenu" />
-          <AssociationSet Name="FK_6OrderMenu_6Menu" Association="user70_dbModel.FK_6OrderMenu_6Menu">
+          <AssociationSet Name="FK_6OrderMenu_6Menu1" Association="user70_dbModel.FK_6OrderMenu_6Menu1">
             <End Role="C6Menu" EntitySet="C6Menu" />
             <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
           </AssociationSet>
-          <AssociationSet Name="FK_6OrderMenu_6Order" Association="user70_dbModel.FK_6OrderMenu_6Order">
+          <AssociationSet Name="FK_6Order_6OrderStatus1" Association="user70_dbModel.FK_6Order_6OrderStatus1">
+            <End Role="C6OrderStatus" EntitySet="C6OrderStatus" />
+            <End Role="C6Order" EntitySet="C6Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6Order_6User" Association="user70_dbModel.FK_6Order_6User">
+            <End Role="C6User" EntitySet="C6User" />
+            <End Role="C6Order" EntitySet="C6Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_6OrderMenu_6Order1" Association="user70_dbModel.FK_6OrderMenu_6Order1">
             <End Role="C6Order" EntitySet="C6Order" />
             <End Role="C6OrderMenu" EntitySet="C6OrderMenu" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="C6Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="OrderStatus" Type="Int32" />
-          <NavigationProperty Name="C6OrderStatus" Relationship="user70_dbModel.FK_6Order_6OrderStatus1" FromRole="C6Order" ToRole="C6OrderStatus" />
-          <NavigationProperty Name="C6User" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6Order" ToRole="C6User" />
-          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Order" FromRole="C6Order" ToRole="C6OrderMenu" />
-        </EntityType>
+          </EntityContainer>
         <EntityType Name="C6OrderStatus">
           <Key>
             <PropertyRef Name="OrderStatusID" />
@@ -426,30 +402,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="C6ShiftReporting" Relationship="user70_dbModel.FK_6ShiftReporting_6Tornout" FromRole="C6Tornout" ToRole="C6ShiftReporting" />
         </EntityType>
-        <Association Name="FK_6Order_6OrderStatus1">
-          <End Type="user70_dbModel.C6OrderStatus" Role="C6OrderStatus" Multiplicity="0..1" />
-          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6OrderStatus">
-              <PropertyRef Name="OrderStatusID" />
-            </Principal>
-            <Dependent Role="C6Order">
-              <PropertyRef Name="OrderStatus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_6Order_6User">
-          <End Type="user70_dbModel.C6User" Role="C6User" Multiplicity="0..1" />
-          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="C6User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="C6Order">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_6ShiftReporting_6Shift">
           <End Type="user70_dbModel.C6Shift" Role="C6Shift" Multiplicity="0..1" />
           <End Type="user70_dbModel.C6ShiftReporting" Role="C6ShiftReporting" Multiplicity="*" />
@@ -486,6 +438,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C6Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Weight" Type="Int32" />
+          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu1" FromRole="C6Menu" ToRole="C6OrderMenu" />
+        </EntityType>
+        <EntityType Name="C6Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <NavigationProperty Name="C6OrderStatus" Relationship="user70_dbModel.FK_6Order_6OrderStatus1" FromRole="C6Order" ToRole="C6OrderStatus" />
+          <NavigationProperty Name="C6User" Relationship="user70_dbModel.FK_6Order_6User" FromRole="C6Order" ToRole="C6User" />
+          <NavigationProperty Name="C6OrderMenu" Relationship="user70_dbModel.FK_6OrderMenu_6Order1" FromRole="C6Order" ToRole="C6OrderMenu" />
+        </EntityType>
         <EntityType Name="C6OrderMenu">
           <Key>
             <PropertyRef Name="OrderMenuID" />
@@ -494,10 +470,10 @@
           <Property Name="Menu" Type="Int32" />
           <Property Name="OrderID" Type="Int32" />
           <Property Name="Kolvo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="C6Menu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu" FromRole="C6OrderMenu" ToRole="C6Menu" />
-          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6OrderMenu_6Order" FromRole="C6OrderMenu" ToRole="C6Order" />
+          <NavigationProperty Name="C6Menu" Relationship="user70_dbModel.FK_6OrderMenu_6Menu1" FromRole="C6OrderMenu" ToRole="C6Menu" />
+          <NavigationProperty Name="C6Order" Relationship="user70_dbModel.FK_6OrderMenu_6Order1" FromRole="C6OrderMenu" ToRole="C6Order" />
         </EntityType>
-        <Association Name="FK_6OrderMenu_6Menu">
+        <Association Name="FK_6OrderMenu_6Menu1">
           <End Type="user70_dbModel.C6Menu" Role="C6Menu" Multiplicity="0..1" />
           <End Type="user70_dbModel.C6OrderMenu" Role="C6OrderMenu" Multiplicity="*" />
           <ReferentialConstraint>
@@ -509,7 +485,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_6OrderMenu_6Order">
+        <Association Name="FK_6Order_6OrderStatus1">
+          <End Type="user70_dbModel.C6OrderStatus" Role="C6OrderStatus" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6OrderStatus">
+              <PropertyRef Name="OrderStatusID" />
+            </Principal>
+            <Dependent Role="C6Order">
+              <PropertyRef Name="OrderStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6Order_6User">
+          <End Type="user70_dbModel.C6User" Role="C6User" Multiplicity="0..1" />
+          <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C6User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C6Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_6OrderMenu_6Order1">
           <End Type="user70_dbModel.C6Order" Role="C6Order" Multiplicity="0..1" />
           <End Type="user70_dbModel.C6OrderMenu" Role="C6OrderMenu" Multiplicity="*" />
           <ReferentialConstraint>
@@ -521,24 +521,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище user70_dbModelContainer" CdmEntityContainer="user70_dbEntities">
-          <EntitySetMapping Name="C6Menu">
-            <EntityTypeMapping TypeName="user70_dbModel.C6Menu">
-              <MappingFragment StoreEntitySet="6Menu">
-                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="C6Role">
             <EntityTypeMapping TypeName="user70_dbModel.C6Role">
               <MappingFragment StoreEntitySet="6Role">
@@ -567,16 +555,6 @@
               <MappingFragment StoreEntitySet="6UserStatus">
                 <ScalarProperty Name="UserStatusID" ColumnName="UserStatusID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C6Order">
-            <EntityTypeMapping TypeName="user70_dbModel.C6Order">
-              <MappingFragment StoreEntitySet="6Order">
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -615,6 +593,28 @@
               <MappingFragment StoreEntitySet="6Tornout">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TornoutID" ColumnName="TornoutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6Menu">
+            <EntityTypeMapping TypeName="user70_dbModel.C6Menu">
+              <MappingFragment StoreEntitySet="6Menu">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C6Order">
+            <EntityTypeMapping TypeName="user70_dbModel.C6Order">
+              <MappingFragment StoreEntitySet="6Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -32,15 +32,11 @@ public partial class user70_dbEntities : DbContext
     }
 
 
-    public virtual DbSet<C6Menu> C6Menu { get; set; }
-
     public virtual DbSet<C6Role> C6Role { get; set; }
 
     public virtual DbSet<C6User> C6User { get; set; }
 
     public virtual DbSet<C6UserStatus> C6UserStatus { get; set; }
-
-    public virtual DbSet<C6Order> C6Order { get; set; }
 
     public virtual DbSet<C6OrderStatus> C6OrderStatus { get; set; }
 
@@ -49,6 +45,10 @@ public partial class user70_dbEntities : DbContext
     public virtual DbSet<C6ShiftReporting> C6ShiftReporting { get; set; }
 
     public virtual DbSet<C6Tornout> C6Tornout { get; set; }
+
+    public virtual DbSet<C6Menu> C6Menu { get; set; }
+
+    public virtual DbSet<C6Order> C6Order { get; set; }
 
     public virtual DbSet<C6OrderMenu> C6OrderMenu { get; set; }
 

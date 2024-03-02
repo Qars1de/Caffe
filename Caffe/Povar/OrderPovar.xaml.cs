@@ -22,7 +22,7 @@ namespace Caffe.Povar
     public partial class OrderPovar : Window
     {
 
-        private C6Order _currentOrderPovar;
+        private C6Order _currentOrderPovar = new C6Order();
 
         public OrderPovar(C6Order selectedOrderPovar)
         {
@@ -32,7 +32,7 @@ namespace Caffe.Povar
             {
                 _currentOrderPovar = selectedOrderPovar;
                 var orderMenu = App.Context.C6OrderMenu.ToList();
-                orderMenu = orderMenu.Where(p => p.OrderID.ToString().ToLower().Contains(selectedOrderPovar.ToString().ToLower())).ToList();
+                orderMenu = orderMenu.Where(p => p.OrderID.ToString().Contains(selectedOrderPovar.OrderID.ToString())).ToList();
                 LViewOrderPovar.ItemsSource = orderMenu;
             }
             DataContext = _currentOrderPovar;

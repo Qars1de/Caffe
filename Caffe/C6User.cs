@@ -22,9 +22,9 @@ public partial class C6User
     public C6User()
     {
 
-        this.C6Order = new HashSet<C6Order>();
-
         this.C6ShiftReporting = new HashSet<C6ShiftReporting>();
+
+        this.C6Order = new HashSet<C6Order>();
 
     }
 
@@ -55,11 +55,11 @@ public partial class C6User
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<C6Order> C6Order { get; set; }
+    public virtual ICollection<C6ShiftReporting> C6ShiftReporting { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<C6ShiftReporting> C6ShiftReporting { get; set; }
+    public virtual ICollection<C6Order> C6Order { get; set; }
 
 }
 

@@ -81,8 +81,8 @@
                                         <StackPanel>
                                             <TextBlock Width="auto" Text="{Binding C6User.LastName, StringFormat={}Клиент: {0}}" Style="{StaticResource LwTbl}" TextWrapping="Wrap" Margin="10,5,5,4" HorizontalAlignment="left" ></TextBlock>
                                         </StackPanel>
-                                        <TextBlock Width="auto" Text="{Binding C6OrderStatus.Status, StringFormat={}Статус: {0}}" Style="{StaticResource LwTbl}" FontWeight="Regular" FontFamily="Segoe UI Light" TextWrapping="Wrap" Margin="10,0,5,5" FontSize="16" HorizontalAlignment="Left"></TextBlock>
-                                    </StackPanel>
+                                            <TextBlock Width="auto" Text="{Binding C6OrderStatus.Status, StringFormat={}Статус: {0}}" Style="{StaticResource LwTbl}" FontWeight="Regular" FontFamily="Segoe UI Light" TextWrapping="Wrap" Margin="10,0,5,5" FontSize="16" HorizontalAlignment="Left"></TextBlock>
+                                        </StackPanel>
                                     </ListViewItem>
                                 </Border>
                             </Grid>
